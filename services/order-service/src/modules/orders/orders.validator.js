@@ -3,7 +3,6 @@ import { body, param } from "express-validator";
 const mongoIdRule = param("id").isMongoId().withMessage("id must be a MongoDB ObjectId");
 
 const orderBaseRules = [
-  body("orderId").isString().notEmpty().withMessage("orderId is required"),
   body("customer.name")
     .isString()
     .notEmpty()
@@ -36,10 +35,6 @@ export const createOrderRules = [...orderBaseRules];
 export const importOrderRules = [
   body("importId").isString().notEmpty().withMessage("importId is required"),
   body("order").isObject().withMessage("order object is required"),
-  body("order.orderId")
-    .isString()
-    .notEmpty()
-    .withMessage("order.orderId is required"),
   body("order.customer.name")
     .isString()
     .notEmpty()

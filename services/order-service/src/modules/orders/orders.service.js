@@ -38,7 +38,7 @@ const importOrder = async (payload) => {
 
   return {
     importId: payload.importId,
-    orderId: createdOrder.orderId,
+    id: createdOrder._id,
     status: "accepted"
   };
 };
