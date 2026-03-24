@@ -1,7 +1,7 @@
 import express from "express";
 
 import ordersController from "./orders.controller.js";
-import validateRequest from "../../middlewares/validate-request.js";
+import validateRequest from "#middlewares/validate-request";
 import {
   getOrderByIdRules,
   createOrderRules,

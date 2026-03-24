@@ -1,9 +1,9 @@
 import express from "express";
 import helmet from "helmet";
 
-import ordersRoutes from "./modules/orders/orders.routes.js";
-import notFoundMiddleware from "./middlewares/not-found.js";
-import errorHandlerMiddleware from "./middlewares/error-handler.js";
+import ordersRoutes from "#modules/orders/orders.routes";
+import notFoundMiddleware from "#middlewares/not-found";
+import errorHandlerMiddleware from "#middlewares/error-handler";
 
 const app = express();
 
