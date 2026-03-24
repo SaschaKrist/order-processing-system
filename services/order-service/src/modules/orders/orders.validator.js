@@ -1,4 +1,4 @@
-const { body, param } = require("express-validator");
+import { body, param } from "express-validator";
 
 const mongoIdRule = param("id").isMongoId().withMessage("id must be a MongoDB ObjectId");
 
@@ -29,11 +29,11 @@ const orderBaseRules = [
     .withMessage("currency must be a 3-letter code")
 ];
 
-const getOrderByIdRules = [mongoIdRule];
+export const getOrderByIdRules = [mongoIdRule];
 
-const createOrderRules = [...orderBaseRules];
+export const createOrderRules = [...orderBaseRules];
 
-const importOrderRules = [
+export const importOrderRules = [
   body("importId").isString().notEmpty().withMessage("importId is required"),
   body("order").isObject().withMessage("order object is required"),
   body("order.orderId")
@@ -62,7 +62,7 @@ const importOrderRules = [
     .withMessage("order.lineItems[].price must be >= 0")
 ];
 
-const updateOrderRules = [
+export const updateOrderRules = [
   mongoIdRule,
   body("status")
     .optional()
@@ -72,9 +72,4 @@ const updateOrderRules = [
   body("error").optional().isString().withMessage("error must be string")
 ];
 
-module.exports = {
-  getOrderByIdRules,
-  createOrderRules,
-  importOrderRules,
-  updateOrderRules
-};
+// (named exports above)

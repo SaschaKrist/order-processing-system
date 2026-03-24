@@ -1,4 +1,4 @@
-const ordersService = require("./orders.service");
+import ordersService from "./orders.service.js";
 
 const getOrders = async (_req, res, next) => {
   try {
@@ -54,7 +54,7 @@ const deleteOrder = async (req, res, next) => {
   }
 };
 
-module.exports = {
+export default {
   getOrders,
   getOrderById,
   createOrder,

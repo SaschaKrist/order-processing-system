@@ -1,8 +1,8 @@
-const errorHandlerMiddleware = (error, _req, res, _next) => {
+const errorHandlerMiddleware = (error, _req, res) => {
   const statusCode = error.statusCode || 500;
   const message = error.message || "Internal server error";
 
   res.status(statusCode).json({ error: message });
 };
 
-module.exports = errorHandlerMiddleware;
+export default errorHandlerMiddleware;

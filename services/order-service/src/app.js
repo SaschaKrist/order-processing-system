@@ -1,9 +1,9 @@
-const express = require("express");
-const helmet = require("helmet");
+import express from "express";
+import helmet from "helmet";
 
-const ordersRoutes = require("./modules/orders/orders.routes");
-const notFoundMiddleware = require("./middlewares/not-found");
-const errorHandlerMiddleware = require("./middlewares/error-handler");
+import ordersRoutes from "./modules/orders/orders.routes.js";
+import notFoundMiddleware from "./middlewares/not-found.js";
+import errorHandlerMiddleware from "./middlewares/error-handler.js";
 
 const app = express();
 
@@ -15,4 +15,4 @@ app.use("/orders", ordersRoutes);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-module.exports = app;
+export default app;

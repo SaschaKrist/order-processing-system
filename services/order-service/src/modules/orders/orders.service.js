@@ -1,4 +1,4 @@
-const ordersRepository = require("./orders.repository");
+import ordersRepository from "./orders.repository.js";
 
 const getOrders = async () => ordersRepository.findAll();
 
@@ -62,7 +62,7 @@ const deleteOrder = async (id) => {
   }
 };
 
-module.exports = {
+export default {
   getOrders,
   getOrderById,
   createOrder,

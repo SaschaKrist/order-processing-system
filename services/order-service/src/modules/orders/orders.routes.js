@@ -1,13 +1,13 @@
-const express = require("express");
+import express from "express";
 
-const ordersController = require("./orders.controller");
-const validateRequest = require("../../middlewares/validate-request");
-const {
+import ordersController from "./orders.controller.js";
+import validateRequest from "../../middlewares/validate-request.js";
+import {
   getOrderByIdRules,
   createOrderRules,
   importOrderRules,
   updateOrderRules
-} = require("./orders.validator");
+} from "./orders.validator.js";
 
 const router = express.Router();
 
@@ -25,4 +25,4 @@ router.post(
 router.patch("/:id", updateOrderRules, validateRequest, ordersController.updateOrder);
 router.delete("/:id", getOrderByIdRules, validateRequest, ordersController.deleteOrder);
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const Order = require("./order.model");
+import Order from "./order.model.js";
 
 const findAll = async () => Order.find().sort({ createdAt: -1 });
 
@@ -11,7 +11,7 @@ const updateById = async (id, payload) =>
 
 const deleteById = async (id) => Order.findByIdAndDelete(id);
 
-module.exports = {
+export default {
   findAll,
   findById,
   create,

@@ -1,8 +1,6 @@
-const mongoose = require("mongoose");
-const { env } = require("./env");
+import mongoose from "mongoose";
+import { env } from "./env.js";
 
-const connectToDatabase = async () => {
+export const connectToDatabase = async () => {
   await mongoose.connect(env.mongodbUri);
 };
-
-module.exports = { connectToDatabase };
