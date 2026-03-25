@@ -1,0 +1,153 @@
+{
+  "info": {
+    "_postman_id": "1a6d3b3f-3f2f-4f28-9a32-5f7d0b70f7b1",
+    "name": "order-service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Requests for the order-service. Base URL is controlled via the environment variable {{orderServiceBaseUrl}}."
+  },
+  "variable": [
+    { "key": "orderServiceBaseUrl", "value": "http://localhost:3000" },
+    { "key": "orderMongoId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Health (not implemented)",
+      "item": [
+        {
+          "name": "GET / (expect 404)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{orderServiceBaseUrl}}/",
+              "host": ["{{orderServiceBaseUrl}}"],
+              "path": [""]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "GET /orders",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{orderServiceBaseUrl}}/orders",
+              "host": ["{{orderServiceBaseUrl}}"],
+              "path": ["orders"]
+            }
+          }
+        },
+        {
+          "name": "POST /orders (create)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('201 Created', function () {",
+                  "  pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "const json = pm.response.json();",
+                  "if (json && json.data && json.data._id) {",
+                  "  pm.environment.set('orderMongoId', json.data._id);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"customer\": {\n    \"name\": \"Max Mustermann\",\n    \"email\": \"max@example.com\"\n  },\n  \"lineItems\": [\n    { \"name\": \"T-Shirt\", \"quantity\": 2, \"price\": 19.99 },\n    { \"name\": \"Sticker Pack\", \"quantity\": 1, \"price\": 4.5 }\n  ],\n  \"currency\": \"EUR\"\n}\n"
+            },
+            "url": {
+              "raw": "{{orderServiceBaseUrl}}/orders",
+              "host": ["{{orderServiceBaseUrl}}"],
+              "path": ["orders"]
+            }
+          }
+        },
+        {
+          "name": "GET /orders/:id",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{orderServiceBaseUrl}}/orders/{{orderMongoId}}",
+              "host": ["{{orderServiceBaseUrl}}"],
+              "path": ["orders", "{{orderMongoId}}"]
+            }
+          }
+        },
+        {
+          "name": "PATCH /orders/:id (update status)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\",\n  \"processedAt\": \"2026-03-24T10:00:00.000Z\"\n}\n"
+            },
+            "url": {
+              "raw": "{{orderServiceBaseUrl}}/orders/{{orderMongoId}}",
+              "host": ["{{orderServiceBaseUrl}}"],
+              "path": ["orders", "{{orderMongoId}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE /orders/:id",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "url": {
+              "raw": "{{orderServiceBaseUrl}}/orders/{{orderMongoId}}",
+              "host": ["{{orderServiceBaseUrl}}"],
+              "path": ["orders", "{{orderMongoId}}"]
+            }
+          }
+        },
+        {
+          "name": "POST /orders/import",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Accept", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"importId\": \"IMPORT-0001\",\n  \"order\": {\n    \"customer\": {\n      \"name\": \"Erika Musterfrau\",\n      \"email\": \"erika@example.com\"\n    },\n    \"lineItems\": [\n      { \"name\": \"Mug\", \"quantity\": 1, \"price\": 12.5 }\n    ],\n    \"currency\": \"EUR\",\n    \"totalAmount\": 12.5\n  }\n}\n"
+            },
+            "url": {
+              "raw": "{{orderServiceBaseUrl}}/orders/import",
+              "host": ["{{orderServiceBaseUrl}}"],
+              "path": ["orders", "import"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
+
