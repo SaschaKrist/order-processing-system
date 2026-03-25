@@ -6,7 +6,7 @@
     "description": "Requests for the order-service. Base URL is controlled via the environment variable {{orderServiceBaseUrl}}."
   },
   "variable": [
-    { "key": "orderServiceBaseUrl", "value": "http://localhost:3001" },
+    { "key": "orderServiceBaseUrl", "value": "http://localhost:3000" },
     { "key": "orderMongoId", "value": "" }
   ],
   "item": [
